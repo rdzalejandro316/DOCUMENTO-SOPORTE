@@ -1,0 +1,8 @@
+1. se creo la tabla inmae_tpago -- formas de pago - contado,credito
+2. se creo la table CoFpagSoporte -- donde se guarda los movimientos las formas de pago
+3. se creo la table CoTipoDocSoporte -- donde se guarda consecutivos etc
+
+
+FALTA
+1. agregar el tema de las ajuste de documento soporte
+2. agregar envio electronico

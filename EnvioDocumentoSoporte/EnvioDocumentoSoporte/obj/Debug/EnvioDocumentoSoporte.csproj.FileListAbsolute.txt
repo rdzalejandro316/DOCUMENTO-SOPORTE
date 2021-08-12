@@ -1,0 +1,15 @@
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\bin\Debug\EnvioDocumentoSoporte.exe.config
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\bin\Debug\EnvioDocumentoSoporte.exe
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\bin\Debug\EnvioDocumentoSoporte.pdb
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.csproj.AssemblyReference.cache
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\MainWindow.g.cs
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\App.g.cs
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte_MarkupCompile.cache
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte_MarkupCompile.lref
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\MainWindow.baml
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.g.resources
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.Properties.Resources.resources
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.csproj.GenerateResource.cache
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.csproj.CoreCompileInputs.cache
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.exe
+C:\Users\aleja\Desktop\DOCUMENTO SOPORTE\EnvioDocumentoSoporte\EnvioDocumentoSoporte\obj\Debug\EnvioDocumentoSoporte.pdb

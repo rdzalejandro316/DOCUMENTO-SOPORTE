@@ -1,0 +1,851 @@
+public class ViewModel 
+{
+    FrameworkElement HostObjets;
+    UserControl1 _usercontrol;
+    Button ButtonPrev;
+    Button ButtonNext;
+    Button ButtonShear;
+    Button ButtonEdit;
+    Button ButtonSave;
+    Button ButtonDelete;
+    TextBox TextBoxNombre;
+    TextBox TextBoxCodigo;
+    bool _initLoad = false;
+    string _titulo =  "";
+    int idUser = ((Inicio)Application.Current.MainWindow)._UserId;
+    static int idEmp = ((Inicio)Application.Current.MainWindow)._BusinessId;
+    static string cnEmp = string.Empty;
+ 
+    public ViewModel()
+    {
+        cnEmp=((Inicio)Application.Current.MainWindow).Func.DatosEmp(idEmp);
+    }
+
+    CLASSmaestra Dclass = new CLASSmaestra();
+    CLASSmaestra _Dclass = new CLASSmaestra();
+
+
+    string tabla = "CoTipoDocSoporte";
+    string codigo = "cod_trn";
+    string nombre = "nom_trn";
+    string idrow = "idrow";
+    string title = "Maestra Tipo de Documento Soporte";
+
+    //columans q se debe ignoran al recorrer la clase
+    List<string> col_ignorar = new List<string>() { "Error", "Item" };
+    //columnas que tiene un valor predeterminado por ejemplo la fecha de actualizacion
+    Dictionary<string, string> col_valor = new Dictionary<string, string>();
+
+    private ICommand registerCommand;
+    public ICommand RegisterCommand
+    {
+        get
+        {
+            if (registerCommand == null)
+            {
+
+                registerCommand = new DelegateCommand<object>(EjeButton);
+            }
+            return registerCommand;
+        }
+    }
+    public void EjeButton(object param)
+    {
+//                MessageBox.Show("jjj");
+                //usercontrol.Seg.Auditor(0,usercontrol.ProjectId,Sia._UserId,usercontrol.GroupId,usercontrol.BusinessId,2,2,0,"Ingreso a:"+"Tabla:"+tabitemx.Maestra+"- " +_titulo,"");
+    }
+
+
+    private ICommand loadCommand;
+    public ICommand LoadCommand
+    {
+        get
+        {
+            if (loadCommand == null)
+            {
+                loadCommand = new DelegateCommand<object>(Load);
+            }
+            return loadCommand;
+        }
+    }
+
+
+
+    public void Load(object param)
+    {
+
+        if(_initLoad==true) return;
+         
+        _initLoad=true;
+        ((UserControl1)param).ShowTitle(true);
+         _usercontrol = ((UserControl1)param);
+        idEmp=_usercontrol.idemp;
+        cnEmp=((Inicio)Application.Current.MainWindow).Func.DatosEmp(idEmp);
+        DataRow foundRow = ((Inicio)Application.Current.MainWindow).Empresas.Rows.Find(idEmp);
+        int idLogo = Convert.ToInt32((((Inicio)Application.Current.MainWindow).Func.cmp("business","BusinessId","BusinessLogo",_usercontrol.BusinessId,0)));
+        _usercontrol.tabitem.Logo(idLogo,".png");
+        _usercontrol.Logo(idLogo,".png"); 
+        _usercontrol.ModuleId = 1;
+        _usercontrol.AccesoId = 59;          
+        ((UserControl1)param).tabitem.Title=title;
+        _usercontrol.Seg.Auditor(0,_usercontrol.ProjectId,idUser,_usercontrol.GroupId,_usercontrol.BusinessId,1,59,0,"Ingreso "+" - " +_titulo,"");
+        _usercontrol.Ancho=0;
+        _usercontrol.WinAncho=860;    //Ajusta ancho de Windows cuando se envia a ventana
+        _usercontrol.WinAlto=380;    //Ajusta alto de Windows cuando se envia a ventana
+        HostObjets = _usercontrol.ControlesContent();
+        _usercontrol.tabitem.Maestra=tabla;
+        _usercontrol.tabitem.CmpCodigo=codigo;
+        _usercontrol.tabitem.CmpNombre=nombre;
+        _usercontrol.tabitem.MultiTab=true;
+        _usercontrol._EstadoAdEdMae = 0;
+        _usercontrol.ActivaDesactivaMaestra(0);
+        _usercontrol.DataContext = Dclass;
+
+
+          TextBoxNombre =  ((TextBox)HostObjets.FindName("TextBoxNombre"));
+          TextBoxCodigo =  ((TextBox)HostObjets.FindName("TextBoxCodigo"));
+          ((TextBox)HostObjets.FindName("TextBoxCodigo")).LostFocus +=new RoutedEventHandler(CodigolostFocus);
+
+        ButtonNext = _usercontrol.RegistraEvento("Next");
+        if(ButtonNext!=null)ButtonNext.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonNext_Click));        
+        ButtonShear = _usercontrol.RegistraEvento("Search");
+        if(ButtonShear!=null)ButtonShear.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonShear_Click));        
+        ButtonEdit = _usercontrol.RegistraEvento("Edit");
+        if(ButtonEdit!=null)ButtonEdit.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonEdit_Click));        
+        ButtonSave = _usercontrol.RegistraEvento("New");
+        if(ButtonSave!=null)ButtonSave.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonSave_Click));    
+        ButtonDelete = _usercontrol.RegistraEvento("Delete");
+        if(ButtonDelete!=null)ButtonDelete.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonDelete_Click));    
+        ButtonPrev = _usercontrol.RegistraEvento("Previous");
+        if(ButtonPrev!=null)ButtonPrev.AddHandler(Button.ClickEvent, new RoutedEventHandler(ButtonPrev_Click));    
+    }
+
+
+    void ButtonPrev_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            ActualizaCampos("","SELECT top 1 * FROM "+tabla+" where "+codigo+"<'"+TextBoxCodigo.Text+"' order by "+codigo+" desc");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+
+    void ButtonNext_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+               ActualizaCampos("","SELECT top 1 * FROM "+tabla+" where "+codigo+">'"+TextBoxCodigo.Text+"' order by "+codigo+" desc");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+
+    void ButtonShear_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+
+                int idr = 0; string code = ""; string name = "";
+                dynamic xx = ((Inicio)Application.Current.MainWindow).WindowBuscar(tabla, codigo, nombre, codigo, idrow, title, cnEmp, true, "",idEmp:idEmp);          
+                xx.ShowInTaskbar = false;
+                xx.Owner = Application.Current.MainWindow;
+                xx.ShowDialog();
+                idr = xx.IdRowReturn;
+                code = xx.Codigo;
+                name = xx.Nombre;
+                xx = null;
+                if (idr > 0)
+                {     
+                     ActualizaCampos(code,string.Empty);
+                }
+                if (string.IsNullOrEmpty(code)) e.Handled = false;
+                e.Handled=true;            
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+
+    void ButtonEdit_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if(_usercontrol._EstadoAdEdMae==0) return;
+            if(_usercontrol._EstadoAdEdMae>0)
+            {
+                ActualizaCampos(TextBoxCodigo.Text,string.Empty);
+                Clone();
+                _usercontrol._EstadoSave=true;
+                TextBoxNombre.Focus();
+                TextBoxNombre.SelectAll();
+            }
+            else
+            {             
+                if(_usercontrol._EstadoAdEdMae==-2)    //esta modificando y cancela, el registro es actualizado
+                {
+                    ActualizaCampos(TextBoxCodigo.Text,string.Empty);
+                    _usercontrol._EstadoAdEdMae=0;
+                }
+                if(_usercontrol._EstadoAdEdMae==-1)    //esta adicionaldo y cancela, el registro es actualizado
+                {
+                    ClearClas();ClearClasOld();
+                    _usercontrol._EstadoAdEdMae=0;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+    void ButtonSave_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if(_usercontrol._EstadoAdEdMae==-2) //grabando en estado de modificacion
+            {
+                // valida si el registro ha cambiado en algun campo
+                if (!ComparaDatos())
+                {
+                    _usercontrol._EstadoAdEdMae=-2;
+                    _usercontrol._EstadoSave=false;
+                    return;
+                }
+                //if(Compare2(DRef,_DRef)) MessageBox.Show("Difere");
+                if (Grabar())
+                {
+                    _usercontrol._EstadoSave=true;
+                    _usercontrol.ActivaDesactivaMaestra(2);
+                    _usercontrol._EstadoAdEdMae=0;
+                }
+            }
+            if(_usercontrol._EstadoAdEdMae==2) //grabando en estado de modificacion
+            {
+                TextBoxNombre.Focus();        
+            }
+            if (_usercontrol._EstadoAdEdMae==1)  //adicionando
+            {
+                ClearClas();ClearClasOld();
+                TextBoxCodigo.Focus();
+            }
+            if (_usercontrol._EstadoAdEdMae==-1)  //adicionando
+            {
+                if(Grabar())
+                {
+                    _usercontrol._EstadoSave=true;
+                    _usercontrol.ActivaDesactivaMaestra(2);
+                    _usercontrol._EstadoAdEdMae=0;
+                }
+                else
+                {
+                    _usercontrol._EstadoAdEdMae=-1;
+                    _usercontrol._EstadoSave=false;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+    void ButtonDelete_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            MessageBoxResult result = MessageBox.Show("Usted desea eliminar el registro....?", "Confirmacion",MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes)
+            {
+                
+                _usercontrol._EstadoAdEdMae=0;
+                return;
+            }
+        
+            if (((Inicio)Application.Current.MainWindow).Func.DeleteMaestra(tabla , codigo, TextBoxCodigo.Text, idEmp))                
+            {
+                ClearClas(); ClearClasOld();
+                _usercontrol._EstadoAdEdMae = 0;
+            }
+            else
+            {
+                _usercontrol._EstadoAdEdMae = 0;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message.ToString());
+        }
+    }
+
+         void CodigolostFocus(object sender, RoutedEventArgs e)
+        {
+
+            TextBox textbox = ((TextBox)sender);
+            if (textbox.Text.Trim().Length == 0)
+            {
+                textbox.Dispatcher.BeginInvoke((Action)(() => { textbox.Focus(); }));
+                return;
+            }
+
+
+            ActualizaCampos("","SELECT * FROM "+tabla+" where "+codigo+"='"+textbox.Text.Trim()+"'");
+
+
+
+            if(Dclass.idrow>0)
+            {
+                Clone();
+                _usercontrol._EstadoAdEdMae=2;
+            }
+            textbox.ScrollToHome();
+        }
+
+        //seleccion todo el texo en un textbox
+
+        void OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textBox = sender as System.Windows.Controls.TextBox;
+
+            if (textBox != null && !textBox.IsReadOnly && e.KeyboardDevice.IsKeyDown(Key.Tab))
+                textBox.SelectAll();
+        }
+
+
+ bool Grabar()
+ {
+     bool _return = false;
+     try
+     {
+        if (_usercontrol._EstadoAdEdMae==-1)     //nuevo
+        {
+            Insertar();
+        }
+        else
+        {
+            Modificar();
+        }
+               
+        _return=true;
+     }
+     catch (SqlException ex)
+     {
+        MessageBox.Show(ex.Message);
+        _return=false;
+     }
+     catch (System.Exception _error)
+     {
+        MessageBox.Show(_error.Message);
+        _return=false;
+     }
+
+    return _return;
+}
+
+
+void Insertar()
+{
+    try
+    {
+        int valor = 0;
+        using (SqlConnection connection = new SqlConnection(((Inicio)Application.Current.MainWindow).Func.DatosEmp(idEmp)))
+        {
+            using (SqlCommand cmd = connection.CreateCommand())
+            {
+                Dictionary<string, Type> campos = new Dictionary<string, Type>();
+                
+                foreach (var item in Dclass.GetType().GetProperties())
+                {
+                    if (!col_ignorar.Contains(item.Name))
+                    {
+                        if (idrow == item.Name) continue;
+                        campos.Add("@" + item.Name, item.PropertyType);                        
+                    }
+                }
+
+
+        
+                 string cab_colm = String.Join(", ", campos.Keys.ToArray()).Replace("@", "");
+                 string cab_colm_parm = String.Join(", ", campos.Keys.ToArray());
+
+                 cmd.CommandText = "INSERT INTO " + tabla + " (" + cab_colm + ")  VALUES (" + cab_colm_parm + ")";
+              
+                 foreach (var item in campos)
+                 {
+                      var key = item.Key.Replace("@", "");
+                      object val = new object();
+                      Type tipo = item.Value;
+                      
+                      System.Data.SqlDbType sqlDb = new System.Data.SqlDbType();
+
+                      var propertyInfo = typeof(CLASSmaestra).GetProperties().Where(p => p.Name == key).Single();
+                      var valueA = propertyInfo.GetValue(Dclass, null);
+                    
+                      if (!col_ignorar.Contains(key))
+                      {
+                          if (idrow == key) continue;
+                          switch (Type.GetTypeCode(tipo))
+                          {
+                              case TypeCode.String:
+                                  val = val == DBNull.Value ? "" : valueA;
+                                  sqlDb = SqlDbType.VarChar;
+                              break;
+                              case TypeCode.Decimal:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToDecimal(valueA);
+                                  sqlDb = SqlDbType.Decimal;
+                              break;
+                              case TypeCode.Double:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToDouble(valueA);
+                                  sqlDb = SqlDbType.Float;
+                              break;
+                              case TypeCode.Int32:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToInt32(valueA);
+                                  sqlDb = SqlDbType.Int;
+                              break;
+                              case TypeCode.Int16:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToInt16(valueA);
+                                  sqlDb = SqlDbType.Int;
+                              break;
+                              case TypeCode.Int64:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToInt64(valueA);
+                                  sqlDb = SqlDbType.Int;
+                              break;
+                              case TypeCode.Boolean:
+                                  val = valueA == DBNull.Value ? 0 : Convert.ToInt32(valueA);
+                                  sqlDb = SqlDbType.Int;
+                              break;
+                              case TypeCode.DateTime:
+                                  val = valueA == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(valueA);
+                                  sqlDb = SqlDbType.Date;
+                              break;
+                            }
+                      }
+
+                      if (col_valor.ContainsKey(key))
+                      {
+                           cmd.Parameters.AddWithValue(item.Key, col_valor[key]);
+                      }            
+                      else
+                      {
+                           SqlParameter param = new SqlParameter();
+                           param.ParameterName = item.Key;
+                           param.Value = val;
+                           param.SqlDbType = sqlDb;
+                           cmd.Parameters.Add(param);
+                      }
+                 }     
+
+                 connection.Open();
+                 valor = cmd.ExecuteNonQuery();
+            
+
+                
+            }           
+        }
+        //return valor;
+
+    }
+    catch (SqlException ex)
+    {
+        MessageBox.Show("erro en el insert:"+ex.Message);
+    }
+}
+
+void Modificar()
+{
+  try
+        {
+            int valor = 0;
+
+            using (SqlConnection connection = new SqlConnection(((Inicio)Application.Current.MainWindow).Func.DatosEmp(idEmp)))
+            {
+                using (SqlCommand cmd = connection.CreateCommand())
+                {
+
+                    string query = " ";
+                    Dictionary<string, Type> campos = new Dictionary<string, Type>();
+
+                    foreach (var item in Dclass.GetType().GetProperties())
+                    {
+                        if (!col_ignorar.Contains(item.Name))
+                        {
+                            if (idrow == item.Name) continue;
+                            query += item.Name + "=@" + item.Name + ",";
+                            campos.Add(item.Name, item.PropertyType);
+                        }
+                    }
+
+                    query = query.Remove(query.Length - 1);
+
+                    cmd.CommandText = "UPDATE " + tabla + " SET " + query + " WHERE " + idrow + "=" + Dclass.idrow.ToString();
+
+                    foreach (var item in campos)
+                    {
+                        object val = new object();
+                        Type tipo = item.Value;
+                        SqlDbType sqlDb = new SqlDbType();
+
+
+                        var propertyInfo = typeof(CLASSmaestra).GetProperties().Where(p => p.Name == item.Key.ToString()).Single();
+                        var valueA = propertyInfo.GetValue(Dclass, null);
+
+                        if (!col_ignorar.Contains(item.Key))
+                        {
+                            if (idrow == item.Key) continue;
+                            switch (Type.GetTypeCode(tipo))
+                            {
+                                case TypeCode.String:
+                                    val = val == DBNull.Value ? "" : valueA;
+                                    sqlDb = SqlDbType.VarChar;
+                                    break;
+                                case TypeCode.Decimal:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToDecimal(valueA);
+                                    sqlDb = SqlDbType.Decimal;
+                                    break;
+                                case TypeCode.Double:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToDouble(valueA);
+                                    sqlDb = SqlDbType.Float;
+                                    break;
+                                case TypeCode.Int32:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToInt32(valueA);
+                                    sqlDb = SqlDbType.Int;
+                                    break;
+                                case TypeCode.Int16:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToInt16(valueA);
+                                    sqlDb = SqlDbType.Int;
+                                    break;
+                                case TypeCode.Int64:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToInt64(valueA);
+                                    sqlDb = SqlDbType.Int;
+                                    break;
+                                case TypeCode.Boolean:
+                                    val = valueA == DBNull.Value ? 0 : Convert.ToInt32(valueA);
+                                    sqlDb = SqlDbType.Int;
+                                    break;
+                                case TypeCode.DateTime:
+                                    val = valueA == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(valueA);
+                                    sqlDb = SqlDbType.Date;
+                                    break;
+                            }
+
+
+                            if (col_valor.ContainsKey(item.Key))
+                            {
+                                cmd.Parameters.AddWithValue("@" + item.Key, col_valor[item.Key]);
+                            }
+                            else
+                            {
+                                SqlParameter param = new SqlParameter();
+                                param.ParameterName = "@" + item.Key;
+                                param.Value = val;
+                                param.SqlDbType = sqlDb;
+                                cmd.Parameters.Add(param);
+                            }
+
+                        }
+                    }
+
+
+                    connection.Open();
+                    valor = cmd.ExecuteNonQuery();
+                }
+            }
+            //return valor;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error Interno Sia", MessageBoxButton.OK, MessageBoxImage.Stop);
+          //  return 0;
+        }
+}
+
+
+    void ActualizaCampos(string code,string _Sql)
+    {
+        try
+        {
+                   
+
+         SqlDataReader dr;
+
+         dr = _Sql == string.Empty ?
+                ((Inicio)Application.Current.MainWindow).Func.SqlDR("SELECT * FROM " + tabla + " where "+codigo+"='"+code+"'", idEmp) :
+                dr = ((Inicio)Application.Current.MainWindow).Func.SqlDR(_Sql, idEmp);
+
+
+
+            if (dr.HasRows)
+            {
+                dr.Read();
+                foreach (var item in Dclass.GetType().GetProperties())
+                {
+
+                    if (col_ignorar.Contains(item.Name)) continue;
+
+                    Type tipo = item.PropertyType;
+
+                    Type examType = typeof(CLASSmaestra);
+                    PropertyInfo piInstance = examType.GetProperty(item.Name);
+                    switch (Type.GetTypeCode(tipo))
+                    {
+                        case TypeCode.String:
+                            piInstance.SetValue(Dclass,dr[item.Name] == DBNull.Value ? "" : dr[item.Name].ToString().Trim());
+                            break;
+                        case TypeCode.Int16:
+                            piInstance.SetValue(Dclass,dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt16(dr[item.Name].ToString().Trim()));
+                            break;
+                        case TypeCode.Int32:
+                            piInstance.SetValue(Dclass,dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt32(dr[item.Name].ToString().Trim()));
+                            break;
+                        case TypeCode.Int64:
+                            piInstance.SetValue(Dclass,dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt64(dr[item.Name].ToString().Trim()));
+                            break;
+                        case TypeCode.Decimal:
+                            piInstance.SetValue(Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToDecimal(dr[item.Name].ToString().Trim()));
+                            break;
+                        case TypeCode.Double:
+                            piInstance.SetValue(Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToDouble(dr[item.Name].ToString().Trim()));
+                            break;
+                        case TypeCode.Boolean:
+                            piInstance.SetValue(Dclass, dr[item.Name] == DBNull.Value ? false : Convert.ToBoolean(dr[item.Name].ToString().Trim()));
+                            break;
+                    }
+                }
+            } // hasrows
+            
+            dr.Close();
+
+
+        }
+        catch (SqlException ex)
+        {
+            MessageBox.Show("ActualizaCampos 1:"+ex.Message);
+        }
+        catch (System.Exception _error)
+        {
+            MessageBox.Show("ActualizaCampos 2:"+_error);
+        }
+    }
+
+
+
+    void ClearClas()
+    {
+          try
+        {
+            foreach (var item in Dclass.GetType().GetProperties())
+            {
+                Type examType = typeof(CLASSmaestra);
+                PropertyInfo piInstance = examType.GetProperty(item.Name);
+                Type tipo = item.PropertyType;
+
+                if (col_ignorar.Contains(item.Name)) continue;
+
+              
+
+                switch (Type.GetTypeCode(tipo))
+                {
+                    case TypeCode.String:
+                        piInstance.SetValue(Dclass, string.Empty);
+                        break;
+                    case TypeCode.Int32:
+                        piInstance.SetValue(Dclass, -1);
+                        break;
+                    case TypeCode.Decimal:
+                        piInstance.SetValue(Dclass, 0);
+                        break;
+                    case TypeCode.Double:
+                        piInstance.SetValue(Dclass, 0);
+                        break;
+                    case TypeCode.Boolean:
+                        piInstance.SetValue(Dclass, false);
+                        break;
+                }
+            }
+
+        }
+        catch (Exception w)
+        {
+            MessageBox.Show("error ClearClas():" + w);
+        }    
+  
+    }
+
+    void ClearClasOld()
+    {
+         try
+        {
+            foreach (var item in Dclass.GetType().GetProperties())
+            {
+                Type examType = typeof(CLASSmaestra);
+                PropertyInfo piInstance = examType.GetProperty(item.Name);
+                Type tipo = item.PropertyType;
+
+                if (col_ignorar.Contains(item.Name)) continue;
+
+                switch (Type.GetTypeCode(tipo))
+                {
+                    case TypeCode.String:
+                        piInstance.SetValue(_Dclass, string.Empty);
+                        break;
+                    case TypeCode.Int32:
+                        piInstance.SetValue(_Dclass, -1);
+                        break;
+                    case TypeCode.Decimal:
+                        piInstance.SetValue(_Dclass, 0);
+                        break;
+                    case TypeCode.Double:
+                        piInstance.SetValue(_Dclass, 0);
+                        break;
+                    case TypeCode.Boolean:
+                        piInstance.SetValue(_Dclass, false);
+                        break;
+                }
+            }
+
+        }
+        catch (Exception w)
+        {
+            MessageBox.Show("error ClearClas():" + w);
+        }            
+    }
+
+
+
+    bool ComparaDatos()
+    {
+        StringBuilder sbRed = new StringBuilder();
+        StringBuilder sbLocal = new StringBuilder();
+        CLASSmaestra __Dclass = new CLASSmaestra();
+        try
+        {
+            SqlDataReader dr;
+            dr = ((Inicio)Application.Current.MainWindow).Func.SqlDR("SELECT * FROM "+tabla+"  where idrow=" + Dclass.idrow.ToString(), idEmp);
+            dr.Read();
+
+            foreach (var item in Dclass.GetType().GetProperties())
+            {
+                if (col_ignorar.Contains(item.Name)) continue;
+                if (col_valor.ContainsKey(item.Name)) continue;
+                Type tipo = item.PropertyType;
+                Type examType = typeof(CLASSmaestra);
+                PropertyInfo piInstance = examType.GetProperty(item.Name);
+                switch (Type.GetTypeCode(tipo))
+                {
+                    case TypeCode.String:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? "" : dr[item.Name].ToString().Trim());
+                        break;
+                    case TypeCode.Int16:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt16(dr[item.Name].ToString().Trim()));
+                        break;
+                    case TypeCode.Int32:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt32(dr[item.Name].ToString().Trim()));
+                        break;
+                    case TypeCode.Int64:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToInt64(dr[item.Name].ToString().Trim()));
+                        break;
+                    case TypeCode.Decimal:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToDecimal(dr[item.Name].ToString().Trim()));
+                        break;
+                    case TypeCode.Double:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? 0 : Convert.ToDouble(dr[item.Name].ToString().Trim()));
+                        break;
+                    case TypeCode.Boolean:
+                        piInstance.SetValue(__Dclass, dr[item.Name] == DBNull.Value ? false : Convert.ToBoolean(dr[item.Name].ToString().Trim()));
+                        break;
+                }
+            }
+
+            dr.Close();
+
+            //// recorre campos de la clase
+            Dclass.GetType().GetProperties().ToList().ForEach(f =>
+            {
+                try
+                {
+                        //compara si cambiaron los campos del registro en le servidor
+                        var propertyInfo = typeof(CLASSmaestra).GetProperties().Where(p => p.Name == f.Name).Single();
+                        var valueA = propertyInfo.GetValue(_Dclass, null); //ORIGINAL EN MEMORIA
+                        var valueB = propertyInfo.GetValue(Dclass, null);  //ACTUAL ///
+                        var valueC = propertyInfo.GetValue(__Dclass, null); //REAL SQL DATA
+
+                        //if (col_ignorar.Contains(propertyInfo.Name)) return;
+                        if (!col_valor.ContainsKey(propertyInfo.Name))
+                    {
+
+                        if (!valueA.Equals(valueC)) sbRed.Append("Tabla:" + tabla + Environment.NewLine + "Cambio Campo " + f.Name + Environment.NewLine + "Anterior :" + valueA + Environment.NewLine + "Nuevo: " + valueC);
+
+                        if (!valueA.Equals(valueB)) sbLocal.Append("Tabla:" + tabla + " : Cambio Campo " + f.Name + Environment.NewLine + " Anterior :" + valueA + " - Nuevo: " + valueB + Environment.NewLine);
+                    };
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            });
+
+            //registra si ya alguien modifico este tercero
+            if (!string.IsNullOrWhiteSpace(sbRed.ToString()))
+            {
+                MessageBoxResult result = MessageBox.Show("Otro usuario ha cambiado ya este registro los cambios fueron " + sbRed.ToString() + ", Usted desea guardar sus cambios?", "Confirmacion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result != MessageBoxResult.Yes) return false;
+
+            }
+            // registra en auditoria los cambio hechos por el usuario                
+            if (!string.IsNullOrWhiteSpace(sbLocal.ToString()))
+            {
+                ((Inicio)Application.Current.MainWindow).seguridad.Auditor(0, ((Inicio)Application.Current.MainWindow)._ProyectId, ((Inicio)Application.Current.MainWindow)._UserId, ((Inicio)Application.Current.MainWindow)._UserGroup, idEmp, 0, -1, 0, sbLocal.ToString(), "");
+            }
+        }
+        catch (SqlException ex)
+        {
+            MessageBox.Show(ex.Message, "Error al Actualizar datos", MessageBoxButton.OK, MessageBoxImage.Stop);
+            return false;
+        }
+        catch (System.Exception _error)
+        {
+            MessageBox.Show(_error.Message);
+            return false;
+        }
+        return true;    
+    }
+
+
+    void Clone()
+    {
+      try
+        {
+
+            foreach (var item in Dclass.GetType().GetProperties())
+            {
+                if (col_ignorar.Contains(item.Name)) continue;
+                Type examType = typeof(CLASSmaestra);
+                PropertyInfo piInstance = examType.GetProperty(item.Name);
+                var propertyInfo = typeof(CLASSmaestra).GetProperties().Where(p => p.Name == item.Name).Single();
+                var valueA = propertyInfo.GetValue(Dclass, null);
+                piInstance.SetValue(_Dclass, valueA);
+            }
+
+        }
+        catch (Exception w)
+        {
+            MessageBox.Show("error Clone():" + w);
+        }
+    }
+
+
+}

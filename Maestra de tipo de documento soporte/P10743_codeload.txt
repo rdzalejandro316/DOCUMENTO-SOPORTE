@@ -1,0 +1,102 @@
+using System.Linq;
+using System.Windows.Shapes;
+using System.Text;
+using System.Reflection;
+using System.Windows.Data;
+using System;
+using System.Collections.Generic;
+using System.Windows.Media;
+using System.ComponentModel;    
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using System.Windows.Controls;
+using System.Globalization;
+using SiasoftApp;
+using SiasoftApp.Commands;
+using System.Runtime.CompilerServices; //CallerMemberName
+using System.ComponentModel.DataAnnotations;
+
+public class CLASSmaestra : INotifyPropertyChanged ,IDataErrorInfo
+{
+/*Funciones generales*/
+public event PropertyChangedEventHandler PropertyChanged;
+private void OnPropertyChanged([CallerMemberName] string property = null)
+{
+    if (PropertyChanged != null)
+    PropertyChanged(this, new PropertyChangedEventArgs(property));
+}
+
+
+#region validation        
+        public string Error { get { return ""; } }       
+        public string this[string columnName]
+        {
+            get
+            {
+                var validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+
+                if (Validator.TryValidateProperty
+                    (
+                        GetType().GetProperty(columnName).GetValue(this),
+                        new ValidationContext(this)
+                        { MemberName = columnName }
+                        , validationResults
+                    )
+                   )
+                    return null;
+
+                return validationResults.First().ErrorMessage;
+            }
+        }
+
+        #endregion
+
+
+int _idrow =0;
+public int idrow {get{return _idrow;}set { _idrow = value;OnPropertyChanged();}}
+
+
+string _cod_trn;
+[Required(ErrorMessage = "el campo (codigo) es requerido")]
+[StringLength(3, ErrorMessage = "el campo (codigo) debe ser menor o igual a 3 caracteres")]
+public string cod_trn {get{return _cod_trn;}set { _cod_trn = value; OnPropertyChanged(); }}
+
+
+string _nom_trn;
+[StringLength(100, ErrorMessage = "el campo (nombre) debe ser menor de 100 caracteres")]
+public string nom_trn {get{return _nom_trn;}set { _nom_trn = value; OnPropertyChanged();}}
+
+
+string _ds_resol;
+[StringLength(18, ErrorMessage = "el campo (Resolucion) debe ser menor de 18 caracteres")]
+public string ds_resol {get{return _ds_resol;}set { _ds_resol = value; OnPropertyChanged();}}
+
+
+DateTime _ds_fecha = DateTime.Now;
+public DateTime ds_fecha {get{return _ds_fecha;}set { _ds_fecha = value;OnPropertyChanged();}}
+
+
+int _ds_inicial;
+public int ds_inicial {get{return _ds_inicial;}set { _ds_inicial = value; OnPropertyChanged();}}
+
+int _ds_final;
+public int ds_final {get{return _ds_final;}set { _ds_final = value; OnPropertyChanged();}}
+
+
+string _ds_prefijo;
+[StringLength(3, ErrorMessage = "el campo (Prefijo) debe ser menor de 3 caracteres")]
+public string ds_prefijo {get{return _ds_prefijo;}set { _ds_prefijo = value; OnPropertyChanged();}}
+
+
+int _ds_consecutivo;
+public int ds_consecutivo {get{return _ds_consecutivo;}set { _ds_consecutivo = value; OnPropertyChanged();}}
+
+int _ds_meses;
+public int ds_meses {get{return _ds_meses;}set { _ds_meses = value; OnPropertyChanged();}}
+
+bool _ds_envio_electronico = false;
+public bool ds_envio_electronico { get { return _ds_envio_electronico; } set { _ds_envio_electronico = value; OnPropertyChanged(); } }
+
+
+
+}

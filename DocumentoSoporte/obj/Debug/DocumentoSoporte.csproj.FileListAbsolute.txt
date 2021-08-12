@@ -1,0 +1,56 @@
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.cs
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.cache
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.lref
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.baml
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.resources
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.Properties.Resources.resources
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.GenerateResource.cache
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CoreCompileInputs.cache
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CopyComplete
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.dll
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.pdb
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\DocumentoSoporte.dll
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\DocumentoSoporte.pdb
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csprojAssemblyReference.cache
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocConsulta.g.cs
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocConsulta.baml
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\BtnEditar.g.cs
+C:\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\BtnEditar.baml
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csprojAssemblyReference.cache
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\BtnEditar.g.cs
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocConsulta.g.cs
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.cs
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.cache
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.lref
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\BtnEditar.baml
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocConsulta.baml
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.baml
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.resources
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.Properties.Resources.resources
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.GenerateResource.cache
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CoreCompileInputs.cache
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CopyComplete
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.dll
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\project\DocumentoSoporte\obj\Debug\DocumentoSoporte.pdb
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\DocumentoSoporte.dll
+\\pitagoras\c$\SiasoftApp\SiasoftGSNueva\SiasoftGSV2019\SiasoftGSV2019_actual\Library\DocumentoSoporte.pdb
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.AssemblyReference.cache
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\BtnEditar.g.cs
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocConsulta.g.cs
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.cs
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\FormasDePago.g.cs
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.cache
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte_MarkupCompile.lref
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.dll
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.pdb
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\BtnEditar.baml
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocConsulta.baml
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.baml
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\FormasDePago.baml
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.g.resources
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.Properties.Resources.resources
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.GenerateResource.cache
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CoreCompileInputs.cache
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\projectGS\DocumentoSoporte\obj\Debug\DocumentoSoporte.csproj.CopyComplete
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\DocumentoSoporte.dll
+D:\Empresas\Empresas\Grupo saavedra\pruebas\Library\DocumentoSoporte.pdb
